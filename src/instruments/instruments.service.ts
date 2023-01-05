@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Instrument } from './instrument.entity';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class InstrumentsService {
-    async findAll(): Promise<Instrument[]>{
-        const instrument = new Instrument();
-        instrument.id = 1;
-        instrument.ticker = 'ddd';
-        instrument.name = 'dadada';
+    constructor(@InjectRepository(Instrument) private instrumentsRepository: Repository<Instrument>){}
 
-        return [instrument];
+    async findAll(): Promise<Instrument[]>{
+        return this.instrumentsRepository.find();
     }
 }
