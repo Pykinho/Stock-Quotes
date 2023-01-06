@@ -17,3 +17,13 @@ scalar DateTime
 type Query {
   instruments: [Instrument!]!
 }
+
+type Mutation {
+  createInstrument(createInstrumentInput: CreateInstrumentInput!): Instrument!
+}
+
+input CreateInstrumentInput {
+  name: String!
+  ticker: String!
+  created_at: DateTime
+}

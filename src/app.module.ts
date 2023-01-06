@@ -15,7 +15,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
   }),
   TypeOrmModule.forRoot({
     type:'postgres',
-    database:':memory:',
+    host:'localhost',
+    password: null,
+    database: 'instruments_quotes',
     entities: ['dist/**/*.entity{.ts,.js}'],
     synchronize: true, //TODO migrations 
   }),
