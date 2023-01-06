@@ -17,4 +17,8 @@ export class InstrumentsService {
     async findAll(): Promise<Instrument[]>{
         return this.instrumentsRepository.find(); //SELECT * instrument
     }
+
+    async findOne(id: number): Promise<Instrument>{
+        return this.instrumentsRepository.findOneOrFail({where: {id: id}}); //SELECT one instrument
+    }
 }

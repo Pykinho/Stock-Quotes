@@ -16,6 +16,7 @@ scalar DateTime
 
 type Query {
   instruments: [Instrument!]!
+  getInstrument(id: Int!): Instrument!
 }
 
 type Mutation {
