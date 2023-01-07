@@ -14,17 +14,35 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Quote {
+  id: Int!
+  instrument_id: Int!
+  price: Int!
+  timestamp: DateTime
+  created_at: DateTime
+}
+
 type Query {
   instruments: [Instrument!]!
   getInstrument(id: Int!): Instrument!
+  quotes: [Quote!]!
+  getQuote(id: Int!): Quote!
 }
 
 type Mutation {
   createInstrument(createInstrumentInput: CreateInstrumentInput!): Instrument!
+  createQuote(createQuoteInput: CreateQuoteInput!): Quote!
 }
 
 input CreateInstrumentInput {
   name: String!
   ticker: String!
+  created_at: DateTime
+}
+
+input CreateQuoteInput {
+  instrument_id: Int!
+  price: Float!
+  timestamp: DateTime
   created_at: DateTime
 }
