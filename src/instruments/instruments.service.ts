@@ -3,7 +3,6 @@ import { Instrument } from './instrument.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateInstrumentInput } from './dto/create-instrument.input';
-import { ApolloError } from 'apollo-server-express';
 
 @Injectable()
 export class InstrumentsService {
@@ -12,7 +11,7 @@ export class InstrumentsService {
     createInstrument(createInstrumentInput: CreateInstrumentInput): Promise <Instrument>{
         const newInstrument = this.instrumentsRepository.create(createInstrumentInput);
         
-        return this.instrumentsRepository.save(newInstrument); //insert 
+        return this.instrumentsRepository.save(newInstrument);
     }
 
     async findAll(): Promise<Instrument[]>{
@@ -20,12 +19,7 @@ export class InstrumentsService {
     }
 
     async findOne(id: number): Promise<Instrument>{
-        const instrument =  this.instrumentsRepository.findOne({where: {id: id}});
-        
-        if (!instrument) {
-        throw new ApolloError(`Instrument with id "${id}" not found`);
-        }
-        return instrument;
+        return this.instrumentsRepository.findOneOrFail({where: {id: id}});
     }
 
     async findTicker(ticker: string): Promise<number>{

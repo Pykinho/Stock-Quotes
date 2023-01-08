@@ -3,7 +3,6 @@ import { Quote } from './quote.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateQuoteInput } from './dto/create-quote.input';
-import { ApolloError } from 'apollo-server-express';
 import { InstrumentsService } from 'src/instruments/instruments.service';
 import { Instrument } from 'src/instruments/instrument.entity';
 
@@ -26,12 +25,7 @@ export class QuotesService {
     }
 
     async findOne(id: number): Promise<Quote>{
-        const quote = await this.quotesRepository.findOneOrFail({where: {id: id}});
-        if (!quote)
-        {
-            throw new ApolloError(`Quote with id "${id}" not found`);
-        }
-        return quote;
+        return this.quotesRepository.findOneOrFail({where: {id: id}});
     }
 
     async findInstrument(id: number): Promise<Instrument>{
