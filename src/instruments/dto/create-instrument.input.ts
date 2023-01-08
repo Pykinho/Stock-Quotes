@@ -3,14 +3,14 @@ import { Field, InputType } from "@nestjs/graphql";
 @InputType()
 export class CreateInstrumentInput{
     
-    @Field()
+    @Field({nullable:true})
     name: string;
 
     @Field()
     ticker: string;
 
     @Field({nullable:true})
-    created_at?: Date;
+    created_at?: string;
 
 
 }

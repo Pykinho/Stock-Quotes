@@ -1,5 +1,6 @@
 import { Field, InputType, Int, ObjectType } from "@nestjs/graphql";
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Quote } from "src/quotes/quote.entity";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn } from 'typeorm';
 
 @Entity()
 @ObjectType()
@@ -13,11 +14,15 @@ export class Instrument {
     @Field()
     ticker: string;
 
-    @Column()
-    @Field()
-    name: string;
-
     @Column({nullable: true})
     @Field({nullable: true})
-    created_at?: Date;
+    name: string;
+
+    @CreateDateColumn({nullable: true})
+    @Field({nullable: true})
+    created_at?: string;
+
+    @OneToMany(() => Quote, quote => quote.instrument)
+    @Field(type => [Quote], {nullable: true})
+    quotes?: Quote[];
 }
